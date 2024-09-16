@@ -110,7 +110,7 @@ class MemoryPuzzle:
                 btn.config(image=self.back_img, state="normal")
 
     def flip_card(self, x, y):
-        if len(self.flipped_cards) < 2 and (x, y) not in self.matched_card:
+        if len(self.flipped_cards) < 2 and (x, y) not in self.matched_card and (x, y) not in self.flipped_cards:
             self.buttons[x][y].config(image=self.images[self.cards[x * 4 + y]])
             pygame.mixer.Sound.play(self.flip_sound)
             self.flipped_cards.append((x, y))
