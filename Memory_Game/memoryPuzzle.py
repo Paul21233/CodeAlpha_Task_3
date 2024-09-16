@@ -26,6 +26,12 @@ class MemoryPuzzle:
         self.flip_sound = pygame.mixer.Sound("assets/flip.mp3")
         self.match_sound = pygame.mixer.Sound("assets/90s-game-ui-6-185099.mp3")
         self.game_over_sound = pygame.mixer.Sound("assets/game_over_funny.mp3")
+        self.countdown_sound = pygame.mixer.Sound("assets/game_countdown.mp3")
+        self.bg_music = "assets/game_music_loop.mp3"
+
+        # playing background music
+        pygame.mixer.music.load(self.bg_music)
+        pygame.mixer.music.play(-1)
 
         # load images of cards
         self.images = [ImageTk.PhotoImage(Image.open(f"assets/image/img_{i}.png").resize((100, 100))) for i in range(8)]
@@ -52,6 +58,9 @@ class MemoryPuzzle:
         elapsed_time = int(time.time() - self.start_time)
         remaining_time = self.time_limit - elapsed_time
         self.timer_label.config(text=f"Time: {remaining_time}")
+
+        if remaining_time == 5:
+            pygame.mixer.Sound.play(self.countdown_sound)
 
         if remaining_time <= 0:
             pygame.mixer.Sound.play(self.game_over_sound)
